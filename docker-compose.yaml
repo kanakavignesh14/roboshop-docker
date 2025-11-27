@@ -2,7 +2,9 @@ services:
    mongodb:
       image: mongodb:v1
       container_name: mongodb
-
+      volumes:           
+      - mongodb:/data/db       #here - mongodb means here docker run -d -p 80:80 -v mongodb:/data/db <image name (mongodb) >
+# we created volumes down we using their names  here eg: docker volume create mongodb --> in compose file we like this way
    catalogue:
       image: catalogue:v1
       container_name: catalogue
@@ -12,10 +14,14 @@ services:
    redis:
       image: redis:7.0    # here we are giving version because directly runing redis without building imgae 
       container_name: redis
+      volumes:
+      - redis:/data
     
    mysql:
       image: mysql:v1
       container_name: mysql
+      volumes:
+      - mysql:/var/lib/mysql
 
    rabbitmq:
       image: rabbitmq:3
@@ -23,6 +29,8 @@ services:
       environment:
          RABBITMQ_DEFAULT_USER: roboshop
          RABBITMQ_DEFAULT_PASS: roboshop123
+      volumes:
+      - rabbitmq:/var/lib/rabbitmq    
          
 
    cart:
@@ -78,3 +86,9 @@ networks:
      driver: bridge
      name: roboshop
      external: false  # true if u have created manually using docker network command
+
+volumes:
+   mongodb:   # is same as docker volume create mongodb
+   redis:
+   mysql:
+   rabbitmq:    
