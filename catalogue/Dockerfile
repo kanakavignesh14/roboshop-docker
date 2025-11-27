@@ -23,7 +23,8 @@ LABEL com.project="roboshop" \
       component="catalogue" \
       created_by="sivakumar"
 ENV MONGO="true" \
-    MONGO_URL="mongodb://mongodb:27017/catalogue"   # note here mongodb is contanier name docker resolve to its container IP
+    MONGO_URL="mongodb://mongodb:27017/catalogue"   
+    # note here mongodb is contanier name docker resolve to its container IP
 # copying the build installtion's from above image to here so tht image size willl reduce     
 COPY --from=build --chown=roboshop:roboshop /opt/server /opt/server  
 
