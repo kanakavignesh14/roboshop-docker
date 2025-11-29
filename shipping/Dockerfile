@@ -23,7 +23,7 @@ RUN mvn clean package && \
 #why we combining all instruction to say all as single RUN to reduce number of layers which result in building image and pushinging image will be fast
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /opt/server
-RUN addgroup -S roboshop && adduser -s roboshop -G roboshop && \
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
     chown -R roboshop:roboshop /opt/server
 ENV CART_ENDPOINT="cart:8080" \
     DB_HOST="mysql"
