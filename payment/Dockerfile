@@ -2,12 +2,12 @@ FROM python:3.9 as builder
 WORKDIR /opt/server
 COPY payment.ini *.py requirements.txt .
 #storing all packges in custom folder and giving to final imgae 
-RUN pip3 install -r requirements.txt --prefix=/install 
+RUN pip3 install --prefix=/install  -r requirements.txt
 
 
 FROM python:3.9.25-alpine3.21 
 WORKDIR /opt/server
-RUN adduser -S roboshop && addgroup -S roboshop -G roboshop && \
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
     chown -R roboshop:roboshop /opt/server
 EXPOSE 8080
 LABEL project="roboshop" \
