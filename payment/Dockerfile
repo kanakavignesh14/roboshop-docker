@@ -1,4 +1,4 @@
-FROM python:3.9 as builder
+FROM python:3.9 AS builder
 WORKDIR /opt/server
 COPY payment.ini *.py requirements.txt .
 #storing all packges in custom folder and giving to final imgae 
