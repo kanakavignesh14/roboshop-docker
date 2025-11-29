@@ -4,7 +4,7 @@ services:
       image: kanakavignesh/mongodb:v1
       container_name: mongodb
       volumes:           
-      - mongodb:/data/db       #here - mongodb means here docker run -d -p 80:80 -v mongodb:/data/db <image name (mongodb) >
+      - mongodb:/data/db       #here - mongodb means here docker run -d -p 80:8080 -v mongodb:/data/db <image name (mongodb) >
 # we created volumes down we using their names  here eg: docker volume create mongodb --> in compose file we like this way
    catalogue:
       build:

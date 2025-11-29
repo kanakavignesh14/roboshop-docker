@@ -27,7 +27,7 @@ ENV MONGO="true" \
     MONGO_URL="mongodb://mongodb:27017/users"  
     # note here mongodb is contanier name docker resolve to its container IP
 # copying the build installtion's from above image to here so tht image size willl reduce     
-COPY --from=build  /opt/server /opt/server  
+COPY --from=build --chown=roboshop:roboshop /opt/server /opt/server  
 
 USER roboshop
 CMD ["server.js"]

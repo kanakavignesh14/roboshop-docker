@@ -29,7 +29,7 @@ ENV REDIS_HOST="redis"  \
     # note here mongodb is contanier name docker resolve to its container IP
 # copying the build installtion's from above image to here so tht image size willl reduce  
 #after copying all files to /opt/server onership need to change to user inside conatiner tht we created (roboshop user)   
-COPY --from=build  /opt/server /opt/server  
+COPY --from=build --chown=roboshop:roboshop  /opt/server /opt/server  
 
 USER roboshop
 CMD ["server.js"]
