@@ -31,22 +31,22 @@ CMD ["uwsgi","--ini","payment.ini"]
 
 
 
-FROM python:3.9
-WORKDIR /opt/server
+#FROM python:3.9
+#WORKDIR /opt/server
 
-COPY payment.ini .
-COPY payment.py .
-COPY rabbitmq.py .
-COPY requirements.txt .
+#COPY payment.ini .
+#COPY payment.py .
+#COPY rabbitmq.py .
+#COPY requirements.txt .
 
-RUN pip3 install -r requirements.txt
+#RUN pip3 install -r requirements.txt
 
-ENV CART_HOST="cart" \
-    CART_PORT="8080" \
-    USER_HOST="user" \
-    USER_PORT="8080" \
-    AMQP_HOST="rabbitmq" \
-    AMQP_USER="roboshop" \
-    AMQP_PASS="roboshop123"
+#ENV CART_HOST="cart" \
+ #   CART_PORT="8080" \
+  #  USER_HOST="user" \
+   # USER_PORT="8080" \
+   # AMQP_HOST="rabbitmq" \
+   # AMQP_USER="roboshop" \
+   # AMQP_PASS="roboshop123"
 
-CMD ["uwsgi","--ini","payment.ini"]    
+#CMD ["uwsgi","--ini","payment.ini"]    
