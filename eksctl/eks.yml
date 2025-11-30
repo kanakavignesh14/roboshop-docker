@@ -18,5 +18,5 @@ metadata:
 managedNodeGroups:
 - name:  roboshop-dev
   instanceTypes: ["c3.large","c4.large","t3.small","t3.large","c4.large"]
-  desired_capacity: 2 # this tells how many nodes will be in node group
+  desiredCapacity: 2 # this tells how many nodes will be in node group
   spot: true    
