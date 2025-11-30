@@ -1,0 +1,22 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+#This simply tells EKS:
+#Cluster name → roboshop-dev
+#Region → us-east-1
+metadata:
+    name: roboshop-dev
+    region: us-east-1
+
+#This creates one managed node group called roboshop-dev.
+#Managed node groups are better because AWS handles:
+#upgrades
+#draining
+#lifecycle
+#security patches
+
+managedNodeGroups:
+- name:  roboshop-dev
+  instanceTypes: ["c3.large","c4.large","t3.small","t3.large","c4.large"]
+  desired_capacity: 2 # this tells how many nodes will be in node group
+  spot: true    
