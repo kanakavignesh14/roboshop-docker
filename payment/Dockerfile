@@ -1,17 +1,33 @@
-FROM python:3.9 AS builder
+# ===========================
+# Stage 1: Builder (Alpine)
+# ===========================
+FROM python:3.9.25-alpine3.21 AS builder
 WORKDIR /opt/server
-COPY payment.ini *.py requirements.txt .
-#storing all packges in custom folder and giving to final imgae 
-RUN pip3 install --prefix=/install  -r requirements.txt
+# Build deps for uwsgi & friends
+RUN apk add --no-cache \
+    build-base \
+    linux-headers \
+    pcre-dev
+# Only requirements first for caching
+COPY requirements.txt .
+# Install into /install (just like you did)
+RUN pip3 install --prefix=/install -r requirements.txt
 
 
-FROM python:3.9.25-alpine3.21 
-WORKDIR /opt/server
-RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
-    chown -R roboshop:roboshop /opt/server
+# ===========================
+# Stage 2: Runtime (Alpine)
+# ===========================
+FROM python:3.9.25-alpine3.21
 EXPOSE 8080
-LABEL project="roboshop" \
-      Trianer="SIVA"
+WORKDIR /opt/server
+# Runtime deps only
+RUN apk add --no-cache pcre
+# Create non-root user
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+# Copy installed packages from builder
+COPY --from=builder /install /usr/local
+# Copy app files
+COPY --chown=roboshop:roboshop payment.ini *.py requirements.txt .
 ENV CART_HOST="cart" \
     CART_PORT="8080" \
     USER_HOST="user" \
@@ -20,11 +36,9 @@ ENV CART_HOST="cart" \
     AMQP_USER="roboshop" \
     AMQP_PASS="roboshop123"
 
-# check classmate note for more onfo related /usr/local/bin we we used here details.
-COPY --from=builder /install /usr/local/bin
-COPY --chown=roboshop:roboshop payment.ini *.py requirements.txt .
 USER roboshop
-CMD ["uwsgi","--ini","payment.ini"]  
+CMD ["uwsgi", "--ini", "payment.ini"]
+
 
 #FROM python:3.9
 #WORKDIR /opt/server
