@@ -18,6 +18,8 @@ services:
       container_name: mongodb
       volumes:           
       - mongodb:/data/db # here /data/db is path inside conatiner we are mounting tht path to volume we created.
+      # docker run -d -p 8080:8080 -v mongodb:/data/db <image name>
+      
    redis:
       image: redis:7.0    # here we are giving version because directly runing redis without building imgae 
       container_name: redis
@@ -101,7 +103,7 @@ networks:
      external: false  # true if u have created manually using docker network command
 
 volumes:
-   mongodb:   # is same as docker volume create mongodb
+   mongodb:   # is same as command --> docker volume create mongodb
    redis:
    mysql:
    rabbitmq:    
